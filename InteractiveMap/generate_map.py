@@ -6,7 +6,7 @@ places = {"id 0001":{"Argentina":{"idea":"where does Horacio Pagini live?", "com
           "id 0003":{"Montreal, QC": {"idea":"congestion sur la ligne bleue", "comments": {"steven":"rien de nouveau"}}, "creation":{"author": "adam", "date": "novembre 7th 2022", "tags": ["transport", "commute", "life"], "likes":4}},
           "id 0004":{"Tokyo, Japan": {"idea":"what are jdm cars", "comments": {"Han": "life"}}, "creation":{"author": "jamal", "date": "novembre 5th 2022", "tags": ["life", "jdm", "environment", "happiness"], "likes":900000}},
           "id 0005":{"france": {"idea":"baguette", "comments": {"François": "un très bon repas"}}, "creation":{"author": "arthur", "date": "novembre 3rd 2022","tags": ["food", "happiness"], "likes":76}},
-          "id 0006":{"deutchland": {"idea":"what is the best beer", "comments": {"chad": "they're all good"}},  "creation":{"author": "josh", "date": "novembre 2nd 2022", "tags": ["happiness", "life"], "likes":60}},
+          "id 0006":{"deutschland": {"idea":"what is the best beer", "comments": {"chad": "they're all good"}},  "creation":{"author": "josh", "date": "novembre 2nd 2022", "tags": ["happiness", "life"], "likes":60}},
           "id 0007":{"ICELAND": {"idea":"how cold does it get", "comments":{"josh": "very"}},  "creation":{"author": "sergei", "date": "novembre 11th 2022", "tags": ["weather", "environment"], "likes":5}},
           "id 0008":{"Ohio": {"idea":"how many potatoes are collected per day", "comments":{"franck": "lots"}},  "creation":{"author": "vlad", "date": "novembre 5th 2022", "tags": ["food", "environment", "economy", "business"], "likes":89}},
           "id 0009":{"Montreal, QC": {"idea": "congestion sur la ligne orange", "comments": {"steven2": "rien de nouveau"}},  "creation":{"author": "jorge", "date": "novembre 8th 2022", "tags": ["transport"],"likes":86}}
@@ -32,9 +32,7 @@ def creat_map(places):
         <p>likes: {places[id]["creation"]["likes"]}</p>
         <input type="button" onclick="readInputsForComments" value="Like">
         <p></p>
-        <script>
-            readInputsForComments()
-            </script>
+        <script></script>
         <p>Comments:</p>
         <ul>
             <comment>{places[id][place]["comments"]}</comment>
@@ -44,7 +42,7 @@ def creat_map(places):
         <input type="submit" onclick="readInputsForComments" value="Post comment">
         <script></script>
         """
-        file = "idea.html"
+        file = f"idea{id}.html"
 
         with open(file, "w") as f:
             f.write(idea_html)
@@ -74,3 +72,5 @@ def creat_map(places):
 
     map.save("map.html")
     print("ready")
+
+creat_map(places)
