@@ -2,7 +2,6 @@ import requests
 
 API_TOKEN = "AIzaSyBkmSyt4ooNWKph1sJ-xq4Z2NpzspFnZNY"
 
-
 def get_lat_and_long(address):
     params = {
         "key": API_TOKEN,
