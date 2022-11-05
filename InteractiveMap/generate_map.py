@@ -68,7 +68,6 @@ def creat_map(places):
             <a href={file}>Click here to read more about the idea</a>
                   
         """
-
         iframe = folium.IFrame(html=html_on_map, width=300, height=300)
         popup = folium.Popup(iframe, max_width=1650)
         loc = list(get_lat_and_long(place))
