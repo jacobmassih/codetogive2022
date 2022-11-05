@@ -44,7 +44,7 @@ def creat_map(places):
         <input type="submit" onclick="readInputsForComments" value="Post comment">
         <script></script>
         """
-        file = "idea.html"
+        file = f"idea{id}.html"
 
         with open(file, "w") as f:
             f.write(idea_html)
