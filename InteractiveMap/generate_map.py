@@ -13,6 +13,7 @@ places = {"id0001":{"Argentina":{"idea":"where does Horacio Pagani live?", "comm
           }
 
 def creat_map(places):
+    return_screen = "map.html"
     map = folium.Map(location=[20, 10],
                      zoom_start=2)
 
@@ -21,6 +22,7 @@ def creat_map(places):
         place = list(places[id].keys())[0]
         idea = places[id][place]["idea"]
     # Generates the "idea" html file when a location is clicked
+
         idea_html = f"""
         <!DOCTYPE html>
     <head>
@@ -39,6 +41,7 @@ def creat_map(places):
         <p>Enter a comment</p>
         <input type="text" id="comment" name="user comment"><br><br>
         <input type="submit" onclick="readInputsForComments" value="Post comment">
+        <center><a href={return_screen}>Click here to go back to the map</a></center>
         
         """
 
@@ -65,7 +68,7 @@ def creat_map(places):
                   
         """
         #iframe = folium.Html(html_on_map), width=300, height=300)
-        popup = folium.Popup(folium.Html(html_on_map, script=True, width=300, height=300), max_width=1650)
+        popup = folium.Popup(folium.Html(html_on_map, script=True, width=300, height=400), max_width=1650)
         loc = list(get_lat_and_long(place))
         folium.Marker(location=loc, popup=popup, tooltip=place).add_to(map)
 
