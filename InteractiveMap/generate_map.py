@@ -49,7 +49,7 @@ def creat_map(places):
             f.write(idea_html)
 
         # Generates the content read in the popup bubbles when a location is clicked
-        # Todo: fix the link, it's not working
+        # Link is now working
 
         html_on_map = f"""
             <h1> {idea}</h1>
