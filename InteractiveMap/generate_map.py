@@ -48,7 +48,7 @@ def creat_map(places):
             f.write(idea_html)
 
         # Generates the content read in the popup bubbles when a location is clicked
-        # Todo: fix the link, it's not working
+        # Link now works
 
         html_on_map = f"""
             <h1> {idea}</h1>
@@ -64,7 +64,6 @@ def creat_map(places):
             <center><a href={file}>Click here to read more about the idea</a></center>
                   
         """
-        #iframe = folium.Html(html_on_map), width=300, height=300)
         popup = folium.Popup(folium.Html(html_on_map, script=True, width=300, height=300), max_width=1650)
         loc = list(get_lat_and_long(place))
         folium.Marker(location=loc, popup=popup, tooltip=place).add_to(map)
