@@ -1,4 +1,5 @@
 import folium
+from folium.plugins import MarkerCluster
 from create_coordinates import get_lat_and_long
 
 places = {"id0001":{"Argentina":{"idea":"where does Horacio Pagani live?", "comments":{"bob":"idk"}}, "creation":{"author": "jorge", "date": "novembre 5th 2022", "tags": ["life"], "likes":1}},
@@ -9,13 +10,16 @@ places = {"id0001":{"Argentina":{"idea":"where does Horacio Pagani live?", "comm
           "id0006":{"deutschland": {"idea":"what is the best beer", "comments": {"chad": "they're all good"}},  "creation":{"author": "josh", "date": "novembre 2nd 2022", "tags": ["happiness", "life"], "likes":60}},
           "id0007":{"ICELAND": {"idea":"how cold does it get", "comments":{"josh": "very"}},  "creation":{"author": "sergei", "date": "novembre 11th 2022", "tags": ["weather", "environment"], "likes":5}},
           "id0008":{"Ohio": {"idea":"how many potatoes are collected per day", "comments":{"franck": "lots"}},  "creation":{"author": "vlad", "date": "novembre 5th 2022", "tags": ["food", "environment", "economy", "business"], "likes":89}},
-          "id0009":{"Montreal, QC": {"idea": "congestion sur la ligne orange", "comments": {"steven2": "rien de nouveau"}},  "creation":{"author": "jorge", "date": "novembre 8th 2022", "tags": ["transport"],"likes":86}}
+          "id0009":{"Laval, QC": {"idea": "congestion sur la ligne orange", "comments": {"steven2": "rien de nouveau"}},  "creation":{"author": "jorge", "date": "novembre 8th 2022", "tags": ["transport"],"likes":86}},
+
+
           }
 
 def creat_map(places):
     map = folium.Map(location=[20, 10],
                      zoom_start=2)
     home_map = "map.html"
+    marker_cluster = MarkerCluster(name="clustered ideas").add_to(map)
     for id in places.keys():
 
         place = list(places[id].keys())[0]
@@ -65,10 +69,12 @@ def creat_map(places):
             <center><a href={file}>Click here to read more about the idea</a></center>
                   
         """
-        #iframe = folium.Html(html_on_map), width=300, height=300)
+
         popup = folium.Popup(folium.Html(html_on_map, script=True, width=300, height=350), max_width=300, max_height=350)
         loc = list(get_lat_and_long(place))
-        folium.Marker(location=loc, popup=popup, tooltip=place).add_to(map)
+        folium.Marker(location=loc, popup=popup, tooltip=place).add_to(marker_cluster)
+
+    folium.LayerControl().add_to(map)
 
     map.save("map.html")
     print("ready")
