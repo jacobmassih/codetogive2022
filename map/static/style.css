@@ -1,0 +1,26 @@
+.main-container{
+    width: 70%;
+    padding-top: 2%;
+    margin-bottom: 2%;
+    margin: auto;
+}
+
+.right{
+    float: right;
+}
+
+input[type='text']{
+    width: 100%;
+}
+
+textarea{
+    width: 100%;
+}
+
+.left{
+    float:left;
+}
+
+label{
+    margin-right: 5px;
+}
