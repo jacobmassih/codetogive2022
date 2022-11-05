@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Map
+        </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <style>
+h1{
+    text-align: left;
+}
+
+.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 1420px;
+height: fit-content;
+}
+
+
+/*Button used to open the contact form.*/
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  top: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/*The popup form (hidden by default)*/
+.form-popup {
+  display: none;
+  position: fixed;
+  margin-top: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/*form container style*/
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* semi-full-width input fields. */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 85%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus*/
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* hover effects*/
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+    </style>
+    
+<script>
+    function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+    </script>
+    <body>
+        <h1>
+            Digital Moment Map 
+            <hr style="border:1px solid black;">
+        </h1>
+        <button class="open-button" onclick="openForm()">Add to map</button>
+        <div class="form-popup" id="myForm">
+
+            <form action="/action_page.php" class="form-container">
+                <h1>Share with us!</h1>
+                <label for="ID"><b>Name</b></label>
+                <input type = "text" placeholder= "Enter your Full Name" name = "name"></br></br>
+                <label for="locationTitle"><b>Topic</b></label>
+                <input type = "text" placeholder= "Enter the Topic Title" name = "topic title"></br></br>
+                <label for="description"><b>Description</b></label>
+                <input type = "text" placeholder= "Enter your Comments" name = "comments"></br></br>
+                <input name = "label" list= "labels" placeholder = "Select Label(s)"></br></br>
+                <datalist id = "labels">
+                    <option value="Label 1"></option>
+                    <option value="Label 2"></option>
+                    <option value="Label 3"></option>
+                    <option value="Label 4"></option>
+                    <option value="Label 5"></option>
+                    <option value="Label 6"></option>
+                    <option value="Label 7"></option>
+                    <option value="Label 8"></option>
+                    <option value="Label 9"></option>
+                    <option value="Label 10"></option>
+                </datalist>
+                <button type="submit" class="btn">Submit</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+        </br>
+        <img src="map.png" alt="Interactive world map image" class = "center">
+    </body>
+</html>
