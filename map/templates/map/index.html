@@ -1,76 +1,81 @@
+<!DOCTYPE html>
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
 
+<body>
+    <div class="main-container">
+        <div class="header-container">
+            <h2>Digital Moment Map</h2>
 
-<div class="main-container">
-    <h1 class="left">Digital Moment Map</h1>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                Add to map
+            </button>
+        </div>
 
-    <button type="button" class="btn btn-primary right" data-bs-toggle="modal" data-bs-target="#addModal">
-        Add to map
-    </button>
+        <!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addModalLabel">Share with us</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <input type="text" placeholder="Author's name">
+                            <br><br>
 
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addModalLabel">Share with us</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <input type="text" placeholder="Author's name">
-                        </br><br>
+                            <input type="text" placeholder="Topic Title">
+                            <br><br>
 
-                        <input type="text" placeholder="Topic Title">
-                        </br></br>
+                            <textarea placeholder="Topic's description"></textarea>
+                            <br><br>
 
-                        <textarea placeholder="Topic's description"></textarea>
-                        </br></br>
+                            <input type="text" placeholder="Country">
+                            <br><br>
 
-                        <input type="text" placeholder="Country">
-                        </br></br>
+                            <input type="checkbox" id="1" name="1" value="humans-rights">
+                            <label for="1">Humans Rights</label>
 
+                            <input type="checkbox" id="2" name="2" value="education">
+                            <label for="2">Education</label>
 
-                        <input type="checkbox" id="1" name="1" value="humans-rights">
-                        <label for="1">Humans Rights</label>
+                            <input type="checkbox" id="3" name="3" value="Environment">
+                            <label for="3">Environment</label>
 
-                        <input type="checkbox" id="2" name="2" value="education">
-                        <label for="2">Education</label>
+                            <input type="checkbox" id="5" name="5" value="democracy">
+                            <label for="5">Democracy</label>
 
-                        <input type="checkbox" id="3" name="3" value="Environment">
-                        <label for="3">Environment</label>
+                            <input type="checkbox" id="4" name="4" value="world-hunger">
+                            <label for="4">World Hunger</label>
 
-                        <input type="checkbox" id="5" name="5" value="democracy">
-                        <label for="5">Democracy</label>
+                            <input type="checkbox" id="6" name="6" value="Public Health">
+                            <label for="6">Public Health</label>
+                        </form>
+                    </div>
 
-                        <input type="checkbox" id="4" name="4" value="world-hunger">
-                        <label for="4">World Hunger</label>
-
-                        <input type="checkbox" id="6" name="6" value="Public Health">
-                        <label for="6">Public Health</label>
-
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Share topic</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Share topic</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+        <p>{{map | safe}}</p>
+
+
+
     </div>
 
-    <div class="map-height">
-        {{map | safe}}
-    </div>
-
-
-</div>
+</body>

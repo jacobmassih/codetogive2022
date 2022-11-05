@@ -16,8 +16,6 @@ places = {"id0001": {"Argentina": {"idea": "where does Horacio Pagani live?", "c
           "id0007": {"ICELAND": {"idea": "how cold does it get", "comments": {"josh": "very"}},  "creation": {"author": "sergei", "date": "novembre 11th 2022", "tags": ["weather", "environment"], "likes": 5}},
           "id0008": {"Ohio": {"idea": "how many potatoes are collected per day", "comments": {"franck": "lots"}},  "creation": {"author": "vlad", "date": "novembre 5th 2022", "tags": ["food", "environment", "economy", "business"], "likes": 89}},
           "id0009": {"Laval, QC": {"idea": "congestion sur la ligne orange", "comments": {"steven2": "rien de nouveau"}},  "creation": {"author": "jorge", "date": "novembre 8th 2022", "tags": ["transport"], "likes": 86}},
-
-
           }
 
 
@@ -38,9 +36,8 @@ def get_lat_and_long(address):
         return location["lat"], location["lng"]
 
 
-def creat_map(places):
-    map = folium.Map(location=[20, 10],
-                     zoom_start=2)
+def create_map(places):
+    map = folium.Map(location=[20, 10], zoom_start=2, min_zoom=2)
     home_map = "map.html"
     marker_cluster = MarkerCluster(name="clustered ideas").add_to(map)
     for id in places.keys():
@@ -101,10 +98,10 @@ def creat_map(places):
 
     folium.LayerControl().add_to(map)
 
-    return map.get_root().render()
+    return map._repr_html_()
 
 
 def index(request):
-
-    context = {'map': creat_map(places)}
+    context = {'map': create_map(places)}
+    print(context["map"])
     return render(request, 'map/index.html', context)
