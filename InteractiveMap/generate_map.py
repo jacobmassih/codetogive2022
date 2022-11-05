@@ -1,7 +1,7 @@
 import folium
 from create_coordinates import get_lat_and_long
 
-places = {"id 0001":{"Argentina":{"idea":"where does Horacio Pagini live?", "comments":{"bob":"idk"}}, "creation":{"author": "jorge", "date": "novembre 5th 2022", "tags": ["life"], "likes":1}},
+places = {"id 0001":{"Argentina":{"idea":"where does Horacio Pagani live?", "comments":{"bob":"idk"}}, "creation":{"author": "jorge", "date": "novembre 5th 2022", "tags": ["life"], "likes":1}},
           "id 0002":{"Malé": {"idea":"vacation", "comments": {"jeff": "nice place"}}, "creation":{"author": "ben", "date": "novembre 6th 2022", "tags": ["life"], "likes":85}},
           "id 0003":{"Montreal, QC": {"idea":"congestion sur la ligne bleue", "comments": {"steven":"rien de nouveau"}}, "creation":{"author": "adam", "date": "novembre 7th 2022", "tags": ["transport", "commute", "life"], "likes":4}},
           "id 0004":{"Tokyo, Japan": {"idea":"what are jdm cars", "comments": {"Han": "life"}}, "creation":{"author": "jamal", "date": "novembre 5th 2022", "tags": ["life", "jdm", "environment", "happiness"], "likes":900000}},
