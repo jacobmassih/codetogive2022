@@ -1,7 +1,7 @@
 import folium
 from create_coordinates import get_lat_and_long
 
-places = {"id 0001":{"Argentina":{"idea":"where does Horacio Pagini live?", "comments":{"bob":"idk"}}, "creation":{"author": "jorge", "date": "novembre 5th 2022", "tags": ["life"], "likes":1}},
+places = {"id 0001":{"Argentina":{"idea":"where does Horacio Pagani live?", "comments":{"bob":"idk"}}, "creation":{"author": "jorge", "date": "novembre 5th 2022", "tags": ["life"], "likes":1}},
           "id 0002":{"Malé": {"idea":"vacation", "comments": {"jeff": "nice place"}}, "creation":{"author": "ben", "date": "novembre 6th 2022", "tags": ["life"], "likes":85}},
           "id 0003":{"Montreal, QC": {"idea":"congestion sur la ligne bleue", "comments": {"steven":"rien de nouveau"}}, "creation":{"author": "adam", "date": "novembre 7th 2022", "tags": ["transport", "commute", "life"], "likes":4}},
           "id 0004":{"Tokyo, Japan": {"idea":"what are jdm cars", "comments": {"Han": "life"}}, "creation":{"author": "jamal", "date": "novembre 5th 2022", "tags": ["life", "jdm", "environment", "happiness"], "likes":900000}},
@@ -32,7 +32,9 @@ def creat_map(places):
         <p>likes: {places[id]["creation"]["likes"]}</p>
         <input type="button" onclick="readInputsForComments" value="Like">
         <p></p>
-        <script></script>
+        <script>
+            readInputsForComments()
+            </script>
         <p>Comments:</p>
         <ul>
             <comment>{places[id][place]["comments"]}</comment>
@@ -42,7 +44,7 @@ def creat_map(places):
         <input type="submit" onclick="readInputsForComments" value="Post comment">
         <script></script>
         """
-        file = f"idea{id}.html"
+        file = "idea.html"
 
         with open(file, "w") as f:
             f.write(idea_html)
@@ -72,5 +74,3 @@ def creat_map(places):
 
     map.save("map.html")
     print("ready")
-
-creat_map(places)
