@@ -24,3 +24,7 @@ textarea{
 label{
     margin-right: 5px;
 }
+
+.map-height{
+    height: 200px;
+}
