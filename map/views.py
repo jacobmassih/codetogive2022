@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 
-from models import Comment, Topic
+from map.models import Comment, Topic
 from .forms import CommentForm, UploadForm
 import folium
 from folium.plugins import MarkerCluster
