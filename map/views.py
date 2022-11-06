@@ -20,6 +20,7 @@ def get_lat_and_long(address):
         "key": API_TOKEN,
         "address": address
     }
+
     url = "https://maps.googleapis.com/maps/api/geocode/json?"
     response = requests.get(url, params=params).json()
 
@@ -52,8 +53,25 @@ def create_map(topics):
     for topic in topics:
         comments = Comment.objects.filter(topic_id=topic.id).values()
         # Generates the content read in the popup bubbles when a location is clicked
-        popupContent = f"""
+        popupContent = """
+        <style>
+            .comments {
+                    border: none;
+                    padding: 5px;
+                    font: 14px/16px sans-serif;
+                    width: 100%;
+                    height: 250px;
+                    overflow: scroll;
+                    }
+                    
+                    /* Scrollbar styles */
+                    ::-webkit-scrollbar {
+                    width: 12px;
+                    height: 12px;
+                    }
+            </style>""" + f"""
             <h3>{topic.title}</h3>
+            <div class="comments">
             <p>{topic.description} </p>
             <p>{topic.author} </p>
             <p>Date of creation: {topic.date}</p>
@@ -67,6 +85,7 @@ def create_map(topics):
             <hr>
             <p> {comment['author']}: {comment['comment']} [Status :  {comment['status']}] <p>
             """
+        popupContent += "</div>"
 
         popup = folium.Popup(folium.Html(
             popupContent, script=True, width=350), max_width=350, max_height=500)
