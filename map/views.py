@@ -8,6 +8,8 @@ import folium
 from folium.plugins import MarkerCluster
 import requests
 from django.http import HttpResponseRedirect
+from django.templatetags.static import static
+
 
 from django.shortcuts import redirect
 
@@ -20,7 +22,6 @@ def get_lat_and_long(address):
         "key": API_TOKEN,
         "address": address
     }
-
 
     url = "https://maps.googleapis.com/maps/api/geocode/json?"
     response = requests.get(url, params=params).json()
@@ -49,38 +50,67 @@ def create_map(topics):
         }
         """
 
-    marker_cluster = MarkerCluster(name="Topics", icon_create_function=cluster_function_js).add_to(map)
+    marker_cluster = MarkerCluster(
+        name="Topics", icon_create_function=cluster_function_js).add_to(map)
 
     for topic in topics:
-        comments = Comment.objects.filter(topic_id=topic.id).values()
+
+        date = str(topic.date).split('.')[0]
         # Generates the content read in the popup bubbles when a location is clicked
         popupContent = """
         <style>
             .comments {
-                    border: none;
-                    padding: 5px;
-                    font: 14px/16px sans-serif;
-                    width: 100%;
-                    height: 250px;
-                    overflow: scroll;
-                    }
-                    
-                    /* Scrollbar styles */
-                    ::-webkit-scrollbar {
-                    width: 12px;
-                    height: 12px;
-                    }
+                border: none;
+                padding: 5px;
+                font: 14px/16px sans-serif;
+                width: 100%;
+                height: 200px;
+                overflow: scroll;
+                }
+
+                /* Scrollbar styles */
+                ::-webkit-scrollbar {
+                width: 12px;
+                height: 12px;
+            }
+            .name{
+                color:blue;
+            }
+            .paragraph-text{
+                text-align: justify;
+                text-justify: inter-word;
+            }
+            .label{
+                background-color: green;
+                color:white;
+            }
+            .like{
+                width:30px;
+            }
+            .main-flex{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
             </style>""" + f"""
-            <h3>{topic.title}</h3>
+            <h2>{topic.title}</h2>
+            <p class="label">{topic.label} </p>
+            <p class="paragraph-text">{topic.description} </p>
+            
+            <div class="main-flex">
+                    <div class="main-flex">
+                        <img class="like" src="{static('like.png') }">
+                        <p>{topic.likes} </p>
+                    </div>
+                    <small><i>by <span class="name">{topic.author} </span> on {date} </i> </small>
+            </div>
+
             <div class="comments">
-            <p>{topic.description} </p>
-            <p>{topic.author} </p>
-            <p>Date of creation: {topic.date}</p>
-            <p>Label:{topic.label} </p>
-            <p>Likes:{topic.likes} </p>
-            <h4>Comments</h4>
+                <h4>Comments</h4>
         """
 
+        comments = Comment.objects.filter(topic_id=topic.id).values()
         for comment in comments:
             popupContent += f"""
             <hr>
