@@ -13,3 +13,8 @@ class UploadForm(ModelForm):
     class Meta:
         model = Topic
         fields = ['author', 'title', 'description', 'city', 'label']
+
+
+class CommentForm(ModelForm):
+    author = forms.TextInput()
+    comment = forms.TextInput()

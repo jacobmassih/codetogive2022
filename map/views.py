@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 
-from map.models import Topic
-from .forms import UploadForm
+from map.models import Comment, Topic
+from .forms import CommentForm, UploadForm
 import folium
 from folium.plugins import MarkerCluster
 import requests
@@ -34,18 +34,26 @@ def create_map(topics):
     marker_cluster = MarkerCluster(name="Topics").add_to(map)
 
     for topic in topics:
+        comments = Comment.objects.filter(topic_id=topic.id).values()
         # Generates the content read in the popup bubbles when a location is clicked
         popupContent = f"""
-            <h1>{topic.title}</h1>
+            <h3>{topic.title}</h3>
             <p>{topic.description} </p>
             <p>{topic.author} </p>
             <p>Date of creation: {topic.date}</p>
             <p>Label:{topic.label} </p>
             <p>Likes:{topic.likes} </p>
+            <h4>Comments</h4>
         """
 
+        for comment in comments:
+            popupContent += f"""
+            <hr>
+            <p> {comment['author']}: {comment['comment']} [Status :  {comment['status']}] <p>
+            """
+
         popup = folium.Popup(folium.Html(
-            popupContent, script=True, width=300, height=350), max_width=300, max_height=350)
+            popupContent, script=True, width=350), max_width=350, max_height=500)
 
         coords = list(get_lat_and_long(topic.city))
 
@@ -59,7 +67,9 @@ def create_map(topics):
 
 def index(request):
     topics = Topic.objects.all()
-    context = {'map': create_map(topics), 'form': UploadForm}
+
+    context = {'map': create_map(
+        topics), 'form': UploadForm}
 
     if (request.method == 'POST'):
         form = UploadForm(request.POST)
