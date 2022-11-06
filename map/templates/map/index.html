@@ -28,44 +28,17 @@
                         <h1 class="modal-title fs-5" id="addModalLabel">Share with us</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <input type="text" placeholder="Author's name">
-                            <br><br>
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            {{form.as_p }}
+                        </div>
 
-                            <input type="text" placeholder="Topic Title">
-                            <br><br>
-
-                            <textarea placeholder="Topic's description"></textarea>
-                            <br><br>
-
-                            <input type="text" placeholder="Country">
-                            <br><br>
-
-                            <input type="checkbox" id="1" name="1" value="humans-rights">
-                            <label for="1">Humans Rights</label>
-
-                            <input type="checkbox" id="2" name="2" value="education">
-                            <label for="2">Education</label>
-
-                            <input type="checkbox" id="3" name="3" value="Environment">
-                            <label for="3">Environment</label>
-
-                            <input type="checkbox" id="5" name="5" value="democracy">
-                            <label for="5">Democracy</label>
-
-                            <input type="checkbox" id="4" name="4" value="world-hunger">
-                            <label for="4">World Hunger</label>
-
-                            <input type="checkbox" id="6" name="6" value="Public Health">
-                            <label for="6">Public Health</label>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Share topic</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" value="Submit" class="btn btn-primary">Share topic</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
-
+from .forms import UploadForm
 import folium
 from folium.plugins import MarkerCluster
 import requests
@@ -81,13 +81,13 @@ def create_map(places):
             <ul>
                 <comment>{str(list(places[id][place]["comments"].keys())[-1])+" posted: "+ str(list(places[id][place]["comments"].values())[-1])}</comment>
             </ul>
-            </p> 
+            </p>
             <p>Enter a comment</p>
             <input type="text" id="comment" name="user comment", placeholder="reply to {str(list(places[id][place]["comments"].keys())[-1])}"><br><br>
             <input type="submit" onclick="readInputsForComments" value="Post comment">
             </p>
             <center><a href={file}>Click here to read more about the idea</a></center>
-                  
+
         """
 
         popup = folium.Popup(folium.Html(
@@ -102,6 +102,10 @@ def create_map(places):
 
 
 def index(request):
-    context = {'map': create_map(places)}
-    print(context["map"])
+    context = {'map': create_map(places), 'form': UploadForm}
+    if (request.method == 'POST'):
+        form = UploadForm(request.POST)
+        if form.is_valid():
+            form.save()
+
     return render(request, 'map/index.html', context)
