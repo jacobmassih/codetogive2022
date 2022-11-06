@@ -7,6 +7,10 @@ from .forms import UploadForm
 import folium
 from folium.plugins import MarkerCluster
 import requests
+from django.http import HttpResponseRedirect
+
+from django.shortcuts import redirect
+
 
 API_TOKEN = "AIzaSyBkmSyt4ooNWKph1sJ-xq4Z2NpzspFnZNY"
 
@@ -27,64 +31,26 @@ def get_lat_and_long(address):
 
 def create_map(topics):
     map = folium.Map(location=[20, 10], zoom_start=2, min_zoom=2)
-    home_map = "map.html"
-    marker_cluster = MarkerCluster(name="clustered ideas").add_to(map)
+    marker_cluster = MarkerCluster(name="Topics").add_to(map)
+
     for topic in topics:
-
-        print(topic)
-        city = topic.city
-        topicTitle = topic.title
-    # Generates the "idea" html file when a location is clicked
-        idea_html = f"""
-        <!DOCTYPE html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <title>{topicTitle}</title>
-        <p>Author: {topic.author}</p>
-        <p>Date of creation: {topic.date}</p>
-        <p>Tags: {topic.label}</p>
-        <p>likes: {topic.likes}</p>
-        <input type="button" onclick="readInputsForComments" value="Like">
-        <p></p>
-        <p>Comments:</p>
-        <ul>
-            <comment></comment>
-        </ul>
-        <p>Enter a comment</p>
-        <input type="text" id="comment" name="user comment"><br><br>
-        <input type="submit" onclick="readInputsForComments" value="Post comment">
-        <center><a href={home_map}>Click here to go back to the map</a></center>
-
-        """
-
-        file = f"idea_{topic}.html"
-
-        # with open(file, "w") as f:
-        #     f.write(idea_html)
-
         # Generates the content read in the popup bubbles when a location is clicked
-        # Link is now working
-
-        html_on_map = f"""
-            <h1> {topicTitle}</h1>
-            <p> Last comment posted:</p>
-            <ul>
-                <comment></comment>
-            </ul>
-            </p>
-            <p>Enter a comment</p>
-            <input type="text" id="comment" name="user comment", placeholder="reply to"><br><br>
-            <input type="submit" onclick="readInputsForComments" value="Post comment">
-            </p>
-            <center><a href={file}>Click here to read more about the idea</a></center>
-
+        popupContent = f"""
+            <h1>{topic.title}</h1>
+            <p>{topic.description} </p>
+            <p>{topic.author} </p>
+            <p>Date of creation: {topic.date}</p>
+            <p>Label:{topic.label} </p>
+            <p>Likes:{topic.likes} </p>
         """
 
         popup = folium.Popup(folium.Html(
-            html_on_map, script=True, width=300, height=350), max_width=300, max_height=350)
-        loc = list(get_lat_and_long(city))
-        folium.Marker(location=loc, popup=popup,
-                      tooltip=city).add_to(marker_cluster)
+            popupContent, script=True, width=300, height=350), max_width=300, max_height=350)
+
+        coords = list(get_lat_and_long(topic.city))
+
+        folium.Marker(location=coords, popup=popup,
+                      tooltip=topic.city).add_to(marker_cluster)
 
     folium.LayerControl().add_to(map)
 
@@ -93,11 +59,12 @@ def create_map(topics):
 
 def index(request):
     topics = Topic.objects.all()
-
     context = {'map': create_map(topics), 'form': UploadForm}
+
     if (request.method == 'POST'):
         form = UploadForm(request.POST)
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect('/map/')
 
     return render(request, 'map/index.html', context)
