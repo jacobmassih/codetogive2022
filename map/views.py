@@ -34,7 +34,7 @@ def create_map(topics):
 
     cluster_function_js = """
         function(cluster) {
-        var childCount = cluster.getChildCount(); 
+        var childCount = cluster.getChildCount();
         var c = ' marker-cluster-';
 
         if (childCount <= 3) {
@@ -48,36 +48,45 @@ def create_map(topics):
         }
         """
 
-    marker_cluster = MarkerCluster(name="Topics", icon_create_function=cluster_function_js).add_to(map)
+    marker_cluster = MarkerCluster(
+        name="Topics", icon_create_function=cluster_function_js).add_to(map)
 
     for topic in topics:
         comments = Comment.objects.filter(topic_id=topic.id).values()
+
+        date = str(topic.date).split('.')[0]
         # Generates the content read in the popup bubbles when a location is clicked
         popupContent = """
         <style>
             .comments {
-                    border: none;
-                    padding: 5px;
-                    font: 14px/16px sans-serif;
-                    width: 100%;
-                    height: 250px;
-                    overflow: scroll;
-                    }
-                    
-                    /* Scrollbar styles */
-                    ::-webkit-scrollbar {
-                    width: 12px;
-                    height: 12px;
-                    }
+                border: none;
+                padding: 5px;
+                font: 14px/16px sans-serif;
+                width: 100%;
+                height: 200px;
+                overflow: scroll;
+                }
+
+                /* Scrollbar styles */
+                ::-webkit-scrollbar {
+                width: 12px;
+                height: 12px;
+            }
+            .name{
+                color:blue;
+            }
+            .paragraph-text{
+                text-align: justify;
+                text-justify: inter-word;
+            }
             </style>""" + f"""
-            <h3>{topic.title}</h3>
-            <div class="comments">
-            <p>{topic.description} </p>
-            <p>{topic.author} </p>
-            <p>Date of creation: {topic.date}</p>
+            <h2>{topic.title}</h2>
+            <p class="paragraph-text">{topic.description} </p>
+            <p><i>by <span class="name">{topic.author} </span> on {date} </i> </p>
             <p>Label:{topic.label} </p>
             <p>Likes:{topic.likes} </p>
-            <h4>Comments</h4>
+            <div class="comments">
+                <h4>Comments</h4>
         """
 
         for comment in comments:
@@ -86,6 +95,15 @@ def create_map(topics):
             <p> {comment['author']}: {comment['comment']} [Status :  {comment['status']}] <p>
             """
         popupContent += "</div>"
+
+        popupContent += f"""
+        <form action="" method="POST">
+            <input type="text" placeholder="Enter a comment">
+
+            <button type="submit">Envoyer </button>
+
+        </form>
+            """
 
         popup = folium.Popup(folium.Html(
             popupContent, script=True, width=350), max_width=350, max_height=500)
