@@ -7,6 +7,5 @@ class topic(admin.ModelAdmin):
 class comment(admin.ModelAdmin):
     list_display = ["author", "comment", "date", "status", "topic"]
 
-
 admin.site.register(Topic, topic)
 admin.site.register(Comment, comment)

@@ -20,7 +20,6 @@ def get_lat_and_long(address):
         "key": API_TOKEN,
         "address": address
     }
-
     url = "https://maps.googleapis.com/maps/api/geocode/json?"
     response = requests.get(url, params=params).json()
 
