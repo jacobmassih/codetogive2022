@@ -19,6 +19,7 @@ class Topic(models.Model):
         max_length=255, choices=TOPIC_CHOICES, default="Education")
     likes = models.BigIntegerField(default=0)
 
+
 class Comment(models.Model):
     author = models.CharField(max_length=20)
     comment = models.CharField(max_length=255)
