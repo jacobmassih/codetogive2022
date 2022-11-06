@@ -10,9 +10,8 @@ class Topic(models.Model):
         ("Democracy", "Democracy"),
         ("Public-Health", "Public-Health"),
     )
-
-    author = models.CharField(max_length=20)
     title = models.CharField(max_length=255)
+    author = models.CharField(max_length=20)
     description = description = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now=True)
     city = models.CharField(max_length=255)

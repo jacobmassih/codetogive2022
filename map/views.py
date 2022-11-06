@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 
-from map.models import Comment, Topic
+from .models import Comment, Topic
 from .forms import CommentForm, UploadForm
 import folium
 from folium.plugins import MarkerCluster
@@ -53,25 +53,8 @@ def create_map(topics):
     for topic in topics:
         comments = Comment.objects.filter(topic_id=topic.id).values()
         # Generates the content read in the popup bubbles when a location is clicked
-        popupContent = """
-        <style>
-            .comments {
-                    border: none;
-                    padding: 5px;
-                    font: 14px/16px sans-serif;
-                    width: 100%;
-                    height: 250px;
-                    overflow: scroll;
-                    }
-                    
-                    /* Scrollbar styles */
-                    ::-webkit-scrollbar {
-                    width: 12px;
-                    height: 12px;
-                    }
-            </style>""" + f"""
+        popupContent = f"""
             <h3>{topic.title}</h3>
-            <div class="comments">
             <p>{topic.description} </p>
             <p>{topic.author} </p>
             <p>Date of creation: {topic.date}</p>
@@ -85,7 +68,6 @@ def create_map(topics):
             <hr>
             <p> {comment['author']}: {comment['comment']} [Status :  {comment['status']}] <p>
             """
-        popupContent += "</div>"
 
         popup = folium.Popup(folium.Html(
             popupContent, script=True, width=350), max_width=350, max_height=500)
