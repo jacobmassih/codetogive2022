@@ -14,7 +14,7 @@ from django.templatetags.static import static
 from django.shortcuts import redirect
 
 
-API_TOKEN = "AIzaSyBkmSyt4ooNWKph1sJ-xq4Z2NpzspFnZNY"
+API_TOKEN = "AIzaSyDvKefewp_aeI01GAXoKM7o2t_2yJT8Eok"
 
 
 def get_lat_and_long(address):
