@@ -24,6 +24,6 @@ class Comment(models.Model):
     author = models.CharField(max_length=20)
     comment = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=255, default='approved')
+    status = models.CharField(max_length=255, default='pending')
     topic = models.ForeignKey(
         Topic, on_delete=models.CASCADE, null=True, blank=True)
