@@ -106,8 +106,8 @@ def create_map(topics):
                     <small><i>by <span class="name">{topic.author} </span> on {date} </i> </small>
             </div>
 
+            <h4>Comments</h4>
             <div class="comments">
-                <h4>Comments</h4>
         """
 
         comments = Comment.objects.filter(topic_id=topic.id).values()
@@ -117,6 +117,11 @@ def create_map(topics):
             <p> {comment['author']}: {comment['comment']} [Status :  {comment['status']}] <p>
             """
         popupContent += "</div>"
+
+        popupContent += f"""
+        <input type="text" placeholder="Enter your comment">
+        <input type="submit">
+        """
 
         popup = folium.Popup(folium.Html(
             popupContent, script=True, width=350), max_width=350, max_height=500)
